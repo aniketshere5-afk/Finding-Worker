@@ -39,11 +39,11 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                        .ignoringRequestMatchers("/oauth2/**", "/login/**")
+                        .ignoringRequestMatchers("/oauth2/**", "/login/**", "/internal/seed/**")
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/login", "/oauth2/**", "/login/**",
-                                "/css/**", "/js/**", "/images/**", "/csrf").permitAll()
+                                "/css/**", "/js/**", "/images/**", "/csrf", "/internal/seed/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/profile/complete").authenticated()
                         .anyRequest().authenticated()
