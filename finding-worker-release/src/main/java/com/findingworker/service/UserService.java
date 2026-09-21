@@ -5,15 +5,20 @@ import com.findingworker.enums.Role;
 import com.findingworker.exception.BadRequestException;
 import com.findingworker.exception.ResourceNotFoundException;
 import com.findingworker.repository.UserRepo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
     private final UserRepo userRepo;
+    private final Set<String> adminEmails;
 
     private User getLoggedInUser(Authentication authentication){
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
@@ -22,8 +27,13 @@ public class UserService {
                 .orElseThrow(()-> new ResourceNotFoundException("Logged-in user not found"));
     }
 
-    public UserService(UserRepo userRepo){
+    public UserService(UserRepo userRepo, @Value("${ADMIN_EMAILS:}") String adminEmailsCsv){
         this.userRepo = userRepo;
+        this.adminEmails = Arrays.stream(adminEmailsCsv.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .map(String::toLowerCase)
+                .collect(Collectors.toSet());
     }
 
     public User updateUser(User user, Authentication authentication){
@@ -71,7 +81,9 @@ public class UserService {
     }
 
     public User createGoogleUser(String name, String email, String phone, Role role) {
-        if(role == Role.ADMIN){
+        boolean isAllowlistedAdmin = adminEmails.contains(email.toLowerCase());
+
+        if(role == Role.ADMIN && !isAllowlistedAdmin){
             throw new BadRequestException("Admin can't be selected during the registration !");
         }
         if (userRepo.existsByEmail(email)) {
@@ -84,7 +96,7 @@ public class UserService {
         user.setName(name);
         user.setEmail(email);
         user.setPhone(phone);
-        user.setRole(role);
+        user.setRole(isAllowlistedAdmin ? Role.ADMIN : role);
         user.setPassword(null);
         return userRepo.save(user);
     }

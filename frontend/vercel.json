@@ -1,6 +1,31 @@
 {
   "rewrites": [
-    { "source": "/api/:path*", "destination": "/index.html" },
+    { "source": "/csrf", "destination": "https://finding-worker-production.up.railway.app/csrf" },
+    { "source": "/logout", "destination": "https://finding-worker-production.up.railway.app/logout" },
+    { "source": "/oauth2/:path*", "destination": "https://finding-worker-production.up.railway.app/oauth2/:path*" },
+    { "source": "/login/:path*", "destination": "https://finding-worker-production.up.railway.app/login/:path*" },
+    { "source": "/api/:path*", "destination": "https://finding-worker-production.up.railway.app/api/:path*" },
+    { "source": "/get-all-categories", "destination": "https://finding-worker-production.up.railway.app/get-all-categories" },
+    { "source": "/get-category-by-id/:id", "destination": "https://finding-worker-production.up.railway.app/get-category-by-id/:id" },
+    { "source": "/get-category-by-name/:name", "destination": "https://finding-worker-production.up.railway.app/get-category-by-name/:name" },
+    { "source": "/category-exists", "destination": "https://finding-worker-production.up.railway.app/category-exists" },
+    { "source": "/create-category", "destination": "https://finding-worker-production.up.railway.app/create-category" },
+    { "source": "/update-category", "destination": "https://finding-worker-production.up.railway.app/update-category" },
+    { "source": "/delete-category-by-id/:id", "destination": "https://finding-worker-production.up.railway.app/delete-category-by-id/:id" },
+    { "source": "/create-booking", "destination": "https://finding-worker-production.up.railway.app/create-booking" },
+    { "source": "/get-booking-by-id/:id", "destination": "https://finding-worker-production.up.railway.app/get-booking-by-id/:id" },
+    { "source": "/update-booking", "destination": "https://finding-worker-production.up.railway.app/update-booking" },
+    { "source": "/get-bookings-by-customer-id/:id", "destination": "https://finding-worker-production.up.railway.app/get-bookings-by-customer-id/:id" },
+    { "source": "/get-bookings-by-worker-id/:id", "destination": "https://finding-worker-production.up.railway.app/get-bookings-by-worker-id/:id" },
+    { "source": "/update-booking-status/:id/:status", "destination": "https://finding-worker-production.up.railway.app/update-booking-status/:id/:status" },
+    { "source": "/cancel-booking/:id", "destination": "https://finding-worker-production.up.railway.app/cancel-booking/:id" },
+    { "source": "/create-review", "destination": "https://finding-worker-production.up.railway.app/create-review" },
+    { "source": "/get-review-by-id/:id", "destination": "https://finding-worker-production.up.railway.app/get-review-by-id/:id" },
+    { "source": "/update-review", "destination": "https://finding-worker-production.up.railway.app/update-review" },
+    { "source": "/delete-review-by-id/:id", "destination": "https://finding-worker-production.up.railway.app/delete-review-by-id/:id" },
+    { "source": "/get-reviews-by-worker-id/:id", "destination": "https://finding-worker-production.up.railway.app/get-reviews-by-worker-id/:id" },
+    { "source": "/get-worker-rating/:id", "destination": "https://finding-worker-production.up.railway.app/get-worker-rating/:id" },
+    { "source": "/get-worker-review-count/:id", "destination": "https://finding-worker-production.up.railway.app/get-worker-review-count/:id" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

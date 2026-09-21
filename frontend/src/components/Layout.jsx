@@ -58,7 +58,7 @@ export default function Layout() {
       <footer className="site-footer">
         <div className="footer-grid">
           <div>
-            <img src="/logo.png" alt="" width="56" />
+            <img src="/logo.png" alt="Finding Worker" width="40" height="40" style={{ objectFit: "contain" }} />
             <p>Finding Worker connects people with verified electricians, plumbers, carpenters, painters, mechanics and more.</p>
           </div>
           <div>
